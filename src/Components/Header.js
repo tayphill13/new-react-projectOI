@@ -1,0 +1,68 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './Header.css';
+import { Button } from './Button';
+
+
+function NavBar() {
+  const [click, setClick] = useState(false);
+  const [button, setButton] = useState(true);
+
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
+
+  const showButton = () => {
+    if (window.innerWidth <= 960) {
+      setButton(false)
+    } else {
+      setButton(true);
+    }
+  };
+
+  useEffect(() => {
+    showButton();
+  }, []);
+
+  window.addEventListener('resize', showButton);
+
+  return (
+    <>
+      <nav className='navbar'>
+        <div className='navbar-container'>
+          <Link to='/' className="navbar-logo" onClick={closeMobileMenu}>
+            Optml-Image <i className='fas fa-atom' />
+          </Link>
+          <div className='menu-icon' onClick={handleClick}>
+            <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+          </div>
+          <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+            <li className='nav-item'>
+              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+                Home
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link to='/upload' className='nav-links' onClick={closeMobileMenu}>
+                Upload
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link to='/my-profile' className='nav-links' onClick={closeMobileMenu}>
+                MyProfile
+              </Link>
+            </li>
+          </ul>
+          <Link to='/sign-up'>
+            {button && <Button buttonStyle='btn--outline'>Sign Up</Button>}
+          </Link>
+          <Link to='/login'>
+            {button && <Button buttonStyle='btn--outline'>Sign In</Button>}
+          </Link>
+        </div>
+      </nav>
+
+    </>
+  );
+}
+
+export default NavBar;
