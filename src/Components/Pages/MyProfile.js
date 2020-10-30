@@ -1,9 +1,9 @@
 import React from 'react';
-
+import '../../App.css';
 
 function MyProfile() {
   return (
-    <div>
+    <div className='my-profile'>
       <h1>This is ideally where the User would have a history of their uploads</h1>
       <h3>Things like:</h3>
       <ul>
